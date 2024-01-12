@@ -20,6 +20,8 @@ for x in range(5, width, 60):
     for y in range(5, height-250, 60):
         blocks.append(pygame.Rect(x, y, 50, 50))
 
+ball = pygame.Rect(width//2-20, py-100, 40, 40)
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -39,6 +41,7 @@ while running:
     pygame.draw.rect(screen, white, paddle)
     for block in blocks:
         pygame.draw.rect(screen, white, block)
+    pygame.draw.circle(screen, white, ball.center, 20)
     pygame.display.flip()
 
 pygame.quit()
