@@ -15,6 +15,11 @@ py = height-50-ph//2
 
 paddle = pygame.Rect(px, py, pw, ph)
 
+blocks = []
+for x in range(5, width, 60):
+    for y in range(5, height-250, 60):
+        blocks.append(pygame.Rect(x, y, 50, 50))
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -32,6 +37,8 @@ while running:
     paddle.y = round(py)
     screen.fill(black)
     pygame.draw.rect(screen, white, paddle)
+    for block in blocks:
+        pygame.draw.rect(screen, white, block)
     pygame.display.flip()
 
 pygame.quit()
