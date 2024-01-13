@@ -45,11 +45,11 @@ while running:
             running = False
             sys.exit()
     pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_LEFT]:
+    if pressed[pygame.K_LEFT] and not (paddle.colliderect(ball) and ballx < width//2):
         if paddle.left != 0:
             px -= 0.5
     if pressed[pygame.K_RIGHT]:
-        if paddle.right != width:
+        if paddle.right != width and not (paddle.colliderect(ball) and ballx > width//2):
             px += 0.5
     paddle.x = round(px)
     paddle.y = round(py)
