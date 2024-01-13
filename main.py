@@ -1,5 +1,8 @@
 import pygame, sys
 pygame.init()
+pygame.font.init()
+
+font = pygame.font.SysFont("comicsans", 30)
 
 width = 900
 height = 500
@@ -38,19 +41,43 @@ ball = pygame.Rect(width//2-20, py-100, 40, 40)
 ballx = ball.centerx
 bally = ball.centery
 
+choosing = True
+mouseSelected = False
+keysSelected = False
+while choosing:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key in (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_RETURN):
+                keysSelected = True
+                choosing = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouseSelected = True
+            choosing = False
+    text = font.render("To use mouse, click. ", 0, white)
+    text2 = font.render("To use left and right arrows, click them or enter.", 0, white)
+    screen.blit(text, (0,0))
+    screen.blit(text2, (0,text.get_height()))
+    pygame.display.flip()
+
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             sys.exit()
-    pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_LEFT] and not (paddle.colliderect(ball) and ballx < width//2):
-        if paddle.left != 0:
-            px -= 0.5
-    if pressed[pygame.K_RIGHT]:
-        if paddle.right != width and not (paddle.colliderect(ball) and ballx > width//2):
-            px += 0.5
+    if keysSelected:
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_LEFT] and not (paddle.colliderect(ball) and ballx < width//2):
+            if paddle.left != 0:
+                px -= 0.5
+        if pressed[pygame.K_RIGHT]:
+            if paddle.right != width and not (paddle.colliderect(ball) and ballx > width//2):
+                px += 0.5
+    elif mouseSelected:
+        px = pygame.mouse.get_pos()[0] - paddle.width//2
     paddle.x = round(px)
     paddle.y = round(py)
     if ball.colliderect(paddle):
