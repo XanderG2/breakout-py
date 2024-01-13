@@ -7,6 +7,7 @@ font = pygame.font.SysFont("comicsans", 30)
 width = 900
 height = 500
 screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Breakout by Xander")
 
 black = (0,0,0)
 white = (255,255,255)
