@@ -36,19 +36,27 @@ while running:
     pressed = pygame.key.get_pressed()
     if pressed[pygame.K_LEFT]:
         if paddle.left != 0:
-            px -= 0.2
+            px -= 0.5
     if pressed[pygame.K_RIGHT]:
         if paddle.right != width:
-            px += 0.2
+            px += 0.5
     paddle.x = round(px)
     paddle.y = round(py)
     if ball.colliderect(paddle):
         dfm = ball.centerx - paddle.centerx
         mx = dfm/100
+        if mx < 0.5:
+            mx = 0.5
+        if mx > -0.5:
+            mx = -0.5
         print(mx)
         if mx > 10:
             mx = 10
         my = -my
+    for block in blocks:
+        if ball.colliderect(block):
+            del blocks[blocks.index(block)]
+            mx = -mx
     if ball.top <= 0:
         my = -my
     if ball.bottom >= height:
@@ -56,7 +64,7 @@ while running:
         ballx = width//2
         bally = py-100
         mx = 0
-        my = 1
+        my = 0.1
     if ball.left <= 0 or ball.right >= width:
         mx = -mx
     ballx += mx
