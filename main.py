@@ -56,9 +56,9 @@ while running:
     if ball.colliderect(paddle):
         dfm = ball.centerx - paddle.centerx
         mx = dfm/100
-        if mx < 0.5:
+        if mx > 0.5 and mx >= 0:
             mx = 0.5
-        if mx > -0.5:
+        if mx > -0.5 and mx <= -0:
             mx = -0.5
         print(mx)
         if mx > 10:
@@ -68,6 +68,7 @@ while running:
         if ball.colliderect(block[0]):
             del blocks[blocks.index(block)]
             mx = -mx
+            my = -my
     if ball.top <= 0:
         my = -my
     if ball.bottom >= height:
