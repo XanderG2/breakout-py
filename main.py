@@ -78,6 +78,10 @@ while running:
                 px += 0.5
     elif mouseSelected:
         px = pygame.mouse.get_pos()[0] - paddle.width//2
+        if px < 0:
+            px = 0
+        if px > width-paddle.width:
+            px = width-paddle.width
     paddle.x = round(px)
     paddle.y = round(py)
     if ball.colliderect(paddle):
