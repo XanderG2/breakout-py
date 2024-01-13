@@ -7,6 +7,14 @@ screen = pygame.display.set_mode((width, height))
 
 black = (0,0,0)
 white = (255,255,255)
+red = (255,0,0)
+orange = (255,165,0)
+yellow = (255,255,0)
+green = (0,255,0)
+blue = (0,0,255)
+indigo = (75,0,135)
+violet = (127,0,255)
+colours = [red, orange, yellow, green, blue, indigo, violet]
 
 ph = 20
 pw = 100
@@ -18,9 +26,12 @@ paddle = pygame.Rect(px, py, pw, ph)
 points = 0
 
 blocks = []
-for x in range(5, width, 60):
-    for y in range(5, height-250, 60):
-        blocks.append(pygame.Rect(x, y, 50, 50))
+ci = 0
+for y in range(5, (7*40)+5, 40):
+    color = colours[ci]
+    for x in range(5, width, 60): 
+        blocks.append([pygame.Rect(x, y, 50, 35), color])
+    ci += 1
 
 mx, my = 0, 0.1
 ball = pygame.Rect(width//2-20, py-100, 40, 40)
@@ -54,7 +65,7 @@ while running:
             mx = 10
         my = -my
     for block in blocks:
-        if ball.colliderect(block):
+        if ball.colliderect(block[0]):
             del blocks[blocks.index(block)]
             mx = -mx
     if ball.top <= 0:
@@ -74,7 +85,7 @@ while running:
     screen.fill(black)
     pygame.draw.rect(screen, white, paddle)
     for block in blocks:
-        pygame.draw.rect(screen, white, block)
+        pygame.draw.rect(screen, block[1], block[0])
     pygame.draw.circle(screen, white, ball.center, 20)
     pygame.display.flip()
 
