@@ -44,7 +44,8 @@ while running:
     paddle.y = round(py)
     if ball.colliderect(paddle):
         dfm = ball.centerx - paddle.centerx
-        mx = dfm//45
+        mx = dfm/100
+        print(mx)
         if mx > 10:
             mx = 10
         my = -my
